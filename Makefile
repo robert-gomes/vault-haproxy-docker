@@ -1,5 +1,13 @@
-generate-certs:
+.PHONY: all
+all: generate-certs build upd
+generate-certs: clear-certs
 	cd config/certs; sh generate-certs.sh
+clear-certs:
+	rm -rf config/certs/*.crt
+	rm -rf config/certs/*.key
+	rm -rf config/certs/*.pem
+	rm -rf config/certs/*.srl
+	rm -rf config/certs/*.csr
 build:
 	docker-compose build
 up:
@@ -13,7 +21,5 @@ stop:
 	docker-compose stop
 restart:
 	docker-compose restart
-reload:
-	docker-compose down up
 ps:
 	docker-compose ps

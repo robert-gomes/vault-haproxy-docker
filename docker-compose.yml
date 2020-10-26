@@ -8,8 +8,6 @@ x-vault: &vault
    - /sys/fs/cgroup:/sys/fs/cgroup:ro
    - ./config/certs:/etc/certs
    - ./tokens:/tokens/
-  ports:
-    - 8200
   healthcheck:
       test: ["CMD", "curl", "-f", "https://localhost:8200/v1/sys/health"]
   privileged: true
@@ -52,8 +50,8 @@ services:
       vault_net:
         ipv4_address: 172.22.120.20
     ports:
+      - "8200:8200"
       - "8201:8201"
-      - "8202:8202"
       - "9000:9000"
     depends_on:
       - vault-1
