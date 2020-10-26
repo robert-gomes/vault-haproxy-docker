@@ -1,0 +1,12 @@
+authorityKeyIdentifier=keyid,issuer
+basicConstraints=CA:FALSE
+keyUsage = digitalSignature, nonRepudiation, keyEncipherment, dataEncipherment
+subjectAltName = @alt_names
+[alt_names]
+DNS.1 = *.vault.local
+DNS.2 = vault-1.vault.local
+DNS.3 = vault-2.vault.local
+DNS.4 = vault-3.vault.local
+DNS.5 = localhost
+
+

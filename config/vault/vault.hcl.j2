@@ -1,0 +1,39 @@
+storage "raft" {
+  path = "/data/vault/"
+  node_id = "{{ hostname }}"
+  retry_join {
+    leader_api_addr = "https://vault-1.vault.local:8200"
+    leader_ca_cert_file = "/etc/certs/vault-root-ca.pem"
+    leader_client_cert_file = "/etc/certs/vault.crt"
+    leader_client_key_file = "/etc/certs/vault.key"
+  }
+  retry_join {
+    leader_api_addr = "https://vault-2.vault.local:8200"
+    leader_ca_cert_file = "/etc/certs/vault-root-ca.pem"
+    leader_client_cert_file = "/etc/certs/vault.crt"
+    leader_client_key_file = "/etc/certs/vault.key"
+  }
+  retry_join {
+    leader_api_addr = "https://vault-3.vault.local:8200"
+    leader_ca_cert_file = "/etc/certs/vault-root-ca.pem"
+    leader_client_cert_file = "/etc/certs/vault.crt"
+    leader_client_key_file = "/etc/certs/vault.key"
+  }
+}
+
+listener "tcp" {
+  address = "0.0.0.0:8200"
+  cluster_address = "0.0.0.0:8201"
+  proxy_protocol_behavior = "use_always"
+  tls_cert_file = "/etc/certs/vault.crt"
+  tls_key_file = "/etc/certs/vault.key"
+}
+
+telemetry {
+  dogstatsd_addr   = "localhost:8125"
+  disable_hostname = true
+}
+disable_mlock = true
+api_addr = "https://{{ hostname }}.vault.local:8200"
+cluster_addr = "https://{{ hostname }}.vault.local:8201"
+ui = true

@@ -1,0 +1,6 @@
+tokens/*
+config/certs/*.crt
+config/certs/*.key
+config/certs/*.pem
+config/certs/*.srl
+config/certs/*.csr
